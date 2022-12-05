@@ -42,10 +42,10 @@ with inbound rule that allows SSH, HTTP and HTTPS from anywhere.
  
   
    
- - Click on the radio button beside the instance name, a drop down menu would appear. 
- Copy the public IP to a note pad, we will make use of it when connecting to our instance via putty. 
+- Click on the radio button beside the instance name, a drop down menu would appear. 
+Copy the public IP to a note pad, we will make use of it when connecting to our instance via putty. 
  
- *Refer to [project1](https://github.com/StrangeJay/DevOps_Journey) to see how to connect to your EC2 instance using putty.* 
+*Refer to [project1](https://github.com/StrangeJay/DevOps_Journey) to see how to connect to your EC2 instance using putty.* 
 
 ---
 ## Step 1 – INSTALLING THE NGINX WEB SERVER
@@ -53,14 +53,14 @@ In order to display web pages to our site visitors, we are going to use a high-p
 
 - Update your server’s package index. Following that, use 'apt install' to get Nginx installed 
 
-   `sudo apt update` 
-   
-   `sudo apt install nginx` 
+  > `sudo apt update` 
+  
+  > `sudo apt install nginx` 
    
 - When prompted, enter **Y** to confirm that you want to install Nginx. Once the installation is finished, the Nginx web server will be active and running on your Ubuntu server. 
    
 -  to verify that Nginx is active and running, run the following code: 
-`sudo systemctl status nginx` 
+ `sudo systemctl status nginx` 
 
 You should get a message that looks like this 
 ![Screenshot_20221205_133939](https://user-images.githubusercontent.com/105195327/205639669-58c75c4d-84f9-4b17-9ef0-b50f8dc1541f.png)  
@@ -75,5 +75,31 @@ Now it is time for us to test how our Nginx server can respond to requests from 
 ![Screenshot_20221205_134609](https://user-images.githubusercontent.com/105195327/205640977-5c144a94-b6ba-4abe-aeaa-a26ecee00541.png)  
  
   
+---
+## Step 2 — INSTALLING MYSQL 
+Now that you have a web server up and running, you need to install a Database Management System (DBMS) to be able to store and manage data for your site in a relational database. *MySQL is a popular relational database management system used within PHP environments, so we will use it in our project.* 
 
+ 
+- Use the 'apt' package manager to install MySQL 
 
+`sudo apt install mysql-server` 
+
+- When prompted, confirm installation by typing Y, and then ENTER. 
+- After installation has been completed, log into the MySQL console by typing 
+`sudo mysql` 
+
+This will connect to the MySQL server as the administrative database user root, which is inferred by the use of sudo when running this command. 
+You should see an output like this: 
+![Screenshot_20221205_140927](https://user-images.githubusercontent.com/105195327/205645182-fe0d3a52-6929-4aaf-adc1-5fac33ae75ef.png)  
+ 
+  
+It’s recommended that you run a security script that comes pre-installed with MySQL. *This script will remove some insecure default settings and lock down access to your database system.*   
+
+Before running the script, you will set a password for the root user, using mysql_native_password as default authentication method. We’re defining this user’s password as devops111 
+
+> `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'devops111';` 
+
+Exit the MySQL shell with: 
+`mysql> exit` 
+ 
+ 
