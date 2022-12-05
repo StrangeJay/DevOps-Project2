@@ -9,6 +9,7 @@ If you do not have one, endeavour to create one [here](https://aws.amazon.com/re
 ### Creating Our EC2 Instance 
 - Search for EC2 on the search bar, or find it in *Services* 
 - On the EC2 page, click on launch instance 
+
 ![Screenshot_20221205_125856](https://user-images.githubusercontent.com/105195327/205633276-8188beb2-7287-45b5-b3b3-ac55b890b5c7.png)  
  
   
@@ -37,13 +38,42 @@ with inbound rule that allows SSH, HTTP and HTTPS from anywhere.
   
 - Click on **Launch Instance** and launch your Instance. 
 - Go to the **Instances** page and check if the instance is running, and the status check has the "2/2 checks passed" sign. 
-
-![Screenshot_20221205_130637](https://user-images.githubusercontent.com/105195327/205635666-29f3b3b9-9cbb-47ce-b58e-69af06e64cfc.png)
+![Screenshot_20221205_130637](https://user-images.githubusercontent.com/105195327/205635666-29f3b3b9-9cbb-47ce-b58e-69af06e64cfc.png) 
  
   
    
  - Click on the radio button beside the instance name, a drop down menu would appear. 
  Copy the public IP to a note pad, we will make use of it when connecting to our instance via putty. 
  
+ *Refer to [project1](https://github.com/StrangeJay/DevOps_Journey) to see how to connect to your EC2 instance using putty.* 
+
+---
+## Step 1 – INSTALLING THE NGINX WEB SERVER
+In order to display web pages to our site visitors, we are going to use a high-performance web server called **Nginx**. We’ll use the 'apt' package manager to install this package. 
+
+- Update your server’s package index. Following that, use 'apt install' to get Nginx installed 
+
+   `sudo apt update` 
+   
+   `sudo apt install nginx` 
+   
+- When prompted, enter **Y** to confirm that you want to install Nginx. Once the installation is finished, the Nginx web server will be active and running on your Ubuntu server. 
+   
+-  to verify that Nginx is active and running, run the following code: 
+`sudo systemctl status nginx` 
+
+You should get a message that looks like this 
+![Screenshot_20221205_133939](https://user-images.githubusercontent.com/105195327/205639669-58c75c4d-84f9-4b17-9ef0-b50f8dc1541f.png)  
  
+*If it's green and running, then you have successfully launched your Nginx web server.* 
+
  
+Now it is time for us to test how our Nginx server can respond to requests from the Internet. 
+- Open a web browser of your choice and type in your public IP address 
+
+*If you see the following page, then your web server was correctly installed and is accessible.*  
+![Screenshot_20221205_134609](https://user-images.githubusercontent.com/105195327/205640977-5c144a94-b6ba-4abe-aeaa-a26ecee00541.png)  
+ 
+  
+
+
