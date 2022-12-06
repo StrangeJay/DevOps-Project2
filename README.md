@@ -48,6 +48,7 @@ Copy the public IP to a note pad, we will make use of it when connecting to our 
 *Refer to [project1](https://github.com/StrangeJay/DevOps_Journey) to see how to connect to your EC2 instance using putty.* 
 
 ---
+---
 ## Step 1 – INSTALLING THE NGINX WEB SERVER
 In order to display web pages to our site visitors, we are going to use a high-performance web server called **Nginx**. We’ll use the 'apt' package manager to install this package. 
 
@@ -74,7 +75,8 @@ Now it is time for us to test how our Nginx server can respond to requests from 
 *If you see the following page, then your web server was correctly installed and is accessible.*  
 ![Screenshot_20221205_134609](https://user-images.githubusercontent.com/105195327/205640977-5c144a94-b6ba-4abe-aeaa-a26ecee00541.png)  
  
-  
+
+---
 ---
 ## Step 2 — INSTALLING MYSQL 
 Now that you have a web server up and running, you need to install a Database Management System (DBMS) to be able to store and manage data for your site in a relational database. *MySQL is a popular relational database management system used within PHP environments, so we will use it in our project.* 
@@ -102,4 +104,45 @@ Before running the script, you will set a password for the root user, using mysq
 Exit the MySQL shell with: 
 `mysql> exit` 
  
- 
+- Start the interactive script by running: `sudo mysql_secure_installation`  
+- You would receive a message asking you to validate password component  
+*You can choose to validate or not, depending on how secure you want your password to be. It checks the strength of a password, and allows users to set only passwords that are strong enough.*  
+**NOTE:** If enabled, passwords which don’t match the specified criteria will be rejected by MySQL with an error. It is safe to leave validation disabled, but you should always use strong, unique passwords for database credentials.
+![Screenshot_20221206_202812](https://user-images.githubusercontent.com/105195327/206004487-98671b3f-496d-4369-b788-15f392566ad4.png)  
+   
+
+- When you’re finished, test if you’re able to log in to the MySQL console by typing: `sudo mysql -p`  
+![Screenshot_20221206_203214](https://user-images.githubusercontent.com/105195327/206005111-15f8d025-c569-4456-b0b2-36cd285f2ee3.png)  
+  
+- To exit the MySQL console, type:
+`mysql> exit`  
+
+
+*Note:* At the time of this writing, the native MySQL PHP library mysqlnd doesn’t support **caching_sha2_authentication**, *the default authentication method for MySQL 8*. For that reason, when creating database users for PHP applications on MySQL 8, you’ll need to make sure they’re configured to use mysql_native_password instead. We’ll demonstrate how to do that in Step 6.
+
+
+Your Mysql server is now installed and secure, next we would install the final component of the LEMP stack. *PHP*.
+
+---
+---
+## Step 3 —  INSTALLING PHP  
+Unlike Apache that embeds the PHP interpreter in each request, Nginx requires an external program to handle PHP processing and act as a bridge between the PHP interpreter itself and the web server. *This allows for a better overall performance in most PHP-based websites*, but it requires additional configuration. 
+You’ll need to install `php-fpm,` which stands for **“PHP fastCGI process manager”**, and tell Nginx to pass PHP requests to this software for processing.  
+Additionally, you’ll need `php-mysql`, a PHP module that allows PHP to communicate with MySQL-based databases.  
+
+To install these 2 packages at once, run:
+> `sudo apt install php-fpm php-mysql`  
+
+When prompted, type **Y** and press ENTER to confirm installation.  
+![Screenshot_20221206_205149](https://user-images.githubusercontent.com/105195327/206009077-15f8e513-1e06-48e0-81aa-d82d4f22cdfa.png)  
+
+
+You now have your PHP components installed. Next, you will configure Nginx to use them.
+
+---
+---
+
+## Step 4 — CONFIGURING NGINX TO USE PHP PROCESSOR  
+
+
+
