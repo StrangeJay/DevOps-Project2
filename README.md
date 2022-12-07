@@ -221,8 +221,8 @@ You should see the following mesage:
   
 Congratulations, your new server is active , but the web root `/var/www/projectlemp` is still empty. *Create an index.html file in that location, to test that the new server block works as expected:  
 
-> sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' 
-> $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html  
+> sudo echo 'Hello lemp from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' 
+> $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlemp/index.html  
   
 - Go to your browser and open your website using your public IP address:  
   ![Screenshot_20221207_124201](https://user-images.githubusercontent.com/105195327/206170755-a2faa924-1b70-4e4d-97dd-d63e709598a5.png)  
@@ -249,8 +249,22 @@ This can be done by ccreating a test PHP file in your document root.
 *This is a valid PHP code that will return information about your server.*  
 You can now access this page in your web browser by visiting your public IP address, followed by /info.php:  
   
+`<Public IP>/info.php`  
   
+   
+ You will see a web page containing detailed information about your server:  
+ ![Screenshot_20221207_210139](https://user-images.githubusercontent.com/105195327/206284882-88e5246d-19c8-493e-88c0-dc596a996d51.png)  
+  
+  
+After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment and your Ubuntu server. You can use rm to remove that file:
 
-
+> `sudo rm /var/www/projectlemp/info.php`  
+  
+You can always regenerate this file if you need it later.  
+  
+---
+---
+## Step 6 – RETRIEVING DATA FROM MYSQL DATABASE WITH PHP (CONTINUED)  
+  
 
 
