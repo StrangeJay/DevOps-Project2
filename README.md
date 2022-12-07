@@ -205,7 +205,8 @@ When you're done editing the document, save and close the nano file by typing
 - Activate your configuration by linking to the config file from Nginx's "sites-enabled" directory: 
 > `sudo ln -s /etc/nginx/sites-available/projectlemp /etc/nginx/sites-enabled/`  
  
-This would tell Nginx to use the configuration next time it is reloaded. You can test your configuration for syntax errors by typing: `sudo nginx -t`  
+This would tell Nginx to use the configuration next time it is reloaded. You can test your configuration for syntax errors by typing: 
+`sudo nginx -t`  
 
 You should see the following mesage:  
 ![Screenshot_20221207_122033](https://user-images.githubusercontent.com/105195327/206166310-86c5d7f5-a46d-44c8-9623-e8cb2639a98c.png)  
@@ -234,4 +235,22 @@ You can leave this file in place as a temporary landing page for your applicatio
 ---
 ---
 ## Step 5 – TESTING PHP WITH NGINX  
+At this stage, your LEMP stack is completely installed and fully operational. *You can test it to ensure that Nginx can accurately hand .php files off to your processor.*  
+This can be done by ccreating a test PHP file in your document root. 
+- Open a new file called **info.php** within your document root in your text editor:  
+> `sudo nano /var/www/projectlemp/info.php`  
+- Type the following lines into the new file: 
+> `<?php 
+  phpinfo();`  
+
+  ![Screenshot_20221207_130847](https://user-images.githubusercontent.com/105195327/206175837-89aa4e85-b3d9-4cc4-8786-028cc4715a1a.png)  
+  
+
+*This is a valid PHP code that will return information about your server.*  
+You can now access this page in your web browser by visiting your public IP address, followed by /info.php:  
+  
+  
+
+
+
 
