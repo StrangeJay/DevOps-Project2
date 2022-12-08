@@ -3,12 +3,12 @@
 
 ## Step 0 – Preparing prerequisites 
 
-In order to complete this project, you will need an AWS account and a virtual server with Ubuntu Server OS. 
-If you do not have one, endeavour to create one [here](https://aws.amazon.com/resources/create-account/)
+To complete this project, you will need an AWS account and a virtual server with Ubuntu Server OS. 
+If you do not have one, endeavor to create one [here](https://aws.amazon.com/resources/create-account/)
 
 ### Creating Our EC2 Instance 
 - Search for EC2 on the search bar, or find it in *Services* 
-- On the EC2 page, click on launch instance 
+- On the EC2 page, click on the launch instance button
 
 ![Screenshot_20221205_125856](https://user-images.githubusercontent.com/105195327/205633276-8188beb2-7287-45b5-b3b3-ac55b890b5c7.png)  
  
@@ -19,38 +19,38 @@ If you do not have one, endeavour to create one [here](https://aws.amazon.com/re
 
   
   
-- Select the OS to be used for the project, i selected the Ubuntu server, covered by my free tier account
+- Select the OS to be used for the project, I selected the Ubuntu server, covered by my free tier account
 ![Screenshot_20221205_130047](https://user-images.githubusercontent.com/105195327/205633826-89c61432-dd1d-44db-aa1d-8f2c86e423a6.png)  
  
   
   
-- Choose instance Type and key pair. For Instance type i chose the T2 micro(free tier elligible). And i used a pre-existing keypair i created for the LAMP project. 
+- Choose the instance Type and key pair. For Instance, I chose the T2 micro(free tier eligible). And i used a pre-existing keypair i created for the LAMP project. 
 ![Screenshot_20221205_130129](https://user-images.githubusercontent.com/105195327/205634279-2cfea91d-49f2-40e4-849d-9d2596086470.png)  
  
  
  
 - Leave the VPC and Subnet settings on default. Go to the Firewall(Security Group) session. 
-- Create a security group, or use an existing Security Group. *For the purpose of this task, i used the SG i created for the LAMP project, 
-with inbound rule that allows SSH, HTTP and HTTPS from anywhere. 
+- Create a security group, or use an existing Security Group. *For this task, i used the SG i created for the LAMP project, 
+with an inbound rule that allows SSH, HTTP and HTTPS from anywhere.* 
 ![Screenshot_20221205_130216](https://user-images.githubusercontent.com/105195327/205635075-8e6601a8-5389-4cc0-81e5-35bcdd4c541f.png)  
  
   
   
 - Click on **Launch Instance** and launch your Instance. 
-- Go to the **Instances** page and check if the instance is running, and the status check has the "2/2 checks passed" sign. 
+- Go to the **Instances** page and check if the instance is running, and if the status check has the "2/2 checks passed" sign. 
 ![Screenshot_20221205_130637](https://user-images.githubusercontent.com/105195327/205635666-29f3b3b9-9cbb-47ce-b58e-69af06e64cfc.png) 
  
   
    
-- Click on the radio button beside the instance name, a drop down menu would appear. 
-Copy the public IP to a note pad, we will make use of it when connecting to our instance via putty. 
+- Click on the radio button beside the instance name, a drop-down menu would appear. 
+Copy the public IP to a notepad, we will make use of it when connecting to our instance via putty. 
  
 *Refer to [project1](https://github.com/StrangeJay/DevOps_Journey) to see how to connect to your EC2 instance using putty.* 
 
 ---
 ---
 ## Step 1 – INSTALLING THE NGINX WEB SERVER
-In order to display web pages to our site visitors, we are going to use a high-performance web server called **Nginx**. We’ll use the 'apt' package manager to install this package. 
+To display web pages to our site visitors, we are going to use a high-performance web server called **Nginx**. We’ll use the 'apt' package manager to install this package. 
 
 - Update your server’s package index. Following that, use 'apt install' to get Nginx installed 
 
@@ -97,7 +97,7 @@ You should see an output like this:
   
 It’s recommended that you run a security script that comes pre-installed with MySQL. *This script will remove some insecure default settings and lock down access to your database system.*   
 
-Before running the script, you will set a password for the root user, using mysql_native_password as default authentication method. We’re defining this user’s password as devops111 
+Before running the script, you will set a password for the root user, using mysql_native_password as the default authentication method. We’re defining this user’s password as devops111 
 
 > `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'devops111';` 
 
@@ -105,9 +105,9 @@ Exit the MySQL shell with:
 `mysql> exit` 
  
 - Start the interactive script by running: `sudo mysql_secure_installation`  
-- You would receive a message asking you to validate password component  
-*You can choose to validate or not, depending on how secure you want your password to be. It checks the strength of a password, and allows users to set only passwords that are strong enough.*  
-**NOTE:** If enabled, passwords which don’t match the specified criteria will be rejected by MySQL with an error. It is safe to leave validation disabled, but you should always use strong, unique passwords for database credentials.
+- You would receive a message asking you to validate the password component  
+*You can choose to validate or not, depending on how secure you want your password to be. It checks the strength of a password and allows users to set only passwords that are strong enough.*  
+**NOTE:** If enabled, passwords that don’t match the specified criteria will be rejected by MySQL with an error. It is safe to leave validation disabled, but you should always use strong, unique passwords for database credentials.
 ![Screenshot_20221206_202812](https://user-images.githubusercontent.com/105195327/206004487-98671b3f-496d-4369-b788-15f392566ad4.png)  
    
 
@@ -121,19 +121,19 @@ Exit the MySQL shell with:
 *Note:* At the time of this writing, the native MySQL PHP library mysqlnd doesn’t support **caching_sha2_authentication**, *the default authentication method for MySQL 8*. For that reason, when creating database users for PHP applications on MySQL 8, you’ll need to make sure they’re configured to use mysql_native_password instead. We’ll demonstrate how to do that in Step 6.
 
 
-Your Mysql server is now installed and secure, next we would install the final component of the LEMP stack. *PHP*.
+Your Mysql server is now installed and secure, next, we would install the final component of the LEMP stack. *PHP*.
 
 ---
 ---
 ## Step 3 —  INSTALLING PHP  
-Unlike Apache that embeds the PHP interpreter in each request, Nginx requires an external program to handle PHP processing and act as a bridge between the PHP interpreter itself and the web server. *This allows for a better overall performance in most PHP-based websites*, but it requires additional configuration. 
-You’ll need to install `php-fpm,` which stands for **“PHP fastCGI process manager”**, and tell Nginx to pass PHP requests to this software for processing.  
+Unlike Apache which embeds the PHP interpreter in each request, Nginx requires an external program to handle PHP processing and act as a bridge between the PHP interpreter itself and the web server. *This allows for better overall performance in most PHP-based websites*, but it requires additional configuration. 
+You’ll need to install `php-fpm,` which stands for **“PHP fastCGI process manager”**, and tells Nginx to pass PHP requests to this software for processing.  
 Additionally, you’ll need `php-mysql`, a PHP module that allows PHP to communicate with MySQL-based databases.  
 
 To install these 2 packages at once, run:
 > `sudo apt install php-fpm php-mysql`  
 
-When prompted, type **Y** and press ENTER to confirm installation.  
+When prompted, type **Y** and press ENTER to confirm the installation.  
 ![Screenshot_20221206_205149](https://user-images.githubusercontent.com/105195327/206009077-15f8e513-1e06-48e0-81aa-d82d4f22cdfa.png)  
 
 
@@ -188,8 +188,8 @@ This will create a blank line, post the following bare-bones configuration:
 ![Screenshot_20221207_115307](https://user-images.githubusercontent.com/105195327/206160552-54162777-a8d1-4f2a-bca7-32c509bc28a6.png)  
   
   
-Here's what each of the directives and location blocks do:  
-- **listen:** This defines the port Nginx will listen on. *In this case it will listen on port 80, the default port for HTTP.*  
+Here's what each of the directives and location blocks does:  
+- **listen:** This defines the port Nginx will listen on. *In this case, it will listen on port 80, the default port for HTTP.*  
 - root: This defines the root of the document, where the files served by this server are stored.  
 - **index:** This defines the order in which Nginx will prioritize index files for this website.  
 - **server_name:** Defines which domain names and/or IP addresses this server block should respond for. *Point this directive to your server’s domain name or public IP address.*
@@ -208,7 +208,7 @@ When you're done editing the document, save and close the nano file by typing
 This would tell Nginx to use the configuration next time it is reloaded. You can test your configuration for syntax errors by typing: 
 `sudo nginx -t`  
 
-You should see the following mesage:  
+You should see the following message:  
 ![Screenshot_20221207_122033](https://user-images.githubusercontent.com/105195327/206166310-86c5d7f5-a46d-44c8-9623-e8cb2639a98c.png)  
   
 - If any errors are reported, return to the configuration page to review its contents before continuing. 
@@ -219,7 +219,7 @@ You should see the following mesage:
 - When you are done, reload Nginx to apply the changes:
 `sudo systemctl reload nginx`  
   
-Congratulations, your new server is active , but the web root `/var/www/projectlemp` is still empty. *Create an index.html file in that location, to test that the new server block works as expected:  
+Congratulations, your new server is active, but the web root `/var/www/projectlemp` is still empty. *Create an index.html file in that location, to test that the new server block works as expected:*  
 
 > sudo echo 'Hello lemp from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' 
 > $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlemp/index.html  
@@ -230,13 +230,13 @@ Congratulations, your new server is active , but the web root `/var/www/projectl
   
 *If you see the text from the **"echo"** command you wrote to the index.html file, then it means your Nginx site is working as expected.* 
 
-You can leave this file in place as a temporary landing page for your application, until you set up an `index.php` file to replace it. Once you do that, remember to remove or rename the `index.html` file from your document root, as it would take precedence over an index.php file by default. 
+You can leave this file in place as a temporary landing page for your application until you set up an `index.php` file to replace it. Once you do that, remember to remove or rename the `index.html` file from your document root, as it would take precedence over an index.php file by default. 
 
 ---
 ---
 ## Step 5 – TESTING PHP WITH NGINX  
 At this stage, your LEMP stack is completely installed and fully operational. *You can test it to ensure that Nginx can accurately hand .php files off to your processor.*  
-This can be done by ccreating a test PHP file in your document root. 
+This can be done by creating a test PHP file in your document root. 
 - Open a new file called **info.php** within your document root in your text editor:  
 > `sudo nano /var/www/projectlemp/info.php`  
 - Type the following lines into the new file: 
@@ -265,17 +265,17 @@ You can always regenerate this file if you need it later.
 ---
 ---
 ## Step 6 – RETRIEVING DATA FROM MYSQL DATABASE WITH PHP (CONTINUED)  
-In this step you will create a test database(DB) with a simple "To do list" and configure access to it. *To enable the Nginx web server query and display data from it.*  
+In this step, you will create a test database(DB) with a simple "To-do list" and configure access to it. *To enable the Nginx web server query and display data from it.*  
 
-- Create a new user with the "mysql_native_password" authentication method, in order to be connected to the MySQL database from PHP.  
+- Create a new user with the "mysql_native_password" authentication method, to be connected to the MySQL database from PHP.  
   
 - Create a database and a user of your choice. *For the sake of this project, we would be creating a database named **example_database** and a user named **example_user**.* 
 - First, connect to the MySQL console using the root account:  `sudo mysql -p`  
 
-To create a new database, run the following commandfrom your MySQL console:  
+To create a new database, run the following command from your MySQL console:  
   ![Screenshot_20221208_122311](https://user-images.githubusercontent.com/105195327/206434650-4459b04c-1a93-4b5f-9290-7351a409df30.png)  
   
-The following command creates a new user named example_user, using mysql_native_password as default authentication method. We're defining this users password as 'password', but you should replace it with a secure password of your choosing. 
+The following command creates a new user named example_user, using mysql_native_password as the default authentication method. We're defining this user's password as 'password', but you should replace it with a secure password of your choosing. 
 
 >  CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';  
 
@@ -320,7 +320,7 @@ You'll see the following output:
 Now you can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor. We’ll use nano for that:  
 `nano /var/www/projectlemp/todo_list.php`  
   
-The following PHP script connects to the MySQL database and queries for the content of the todo_list table, displays the results in a list. If there is a problem with the database connection, it will throw an exception.
+The following PHP script connects to the MySQL database and queries for the content of the todo_list table, displaying the results in a list. If there is a problem with the database connection, it will throw an exception.
 Copy this content into your todo_list.php script:  
 ![Screenshot_20221208_125220](https://user-images.githubusercontent.com/105195327/206440034-830351a6-d138-4341-901f-734b3c585d4c.png)  
   
