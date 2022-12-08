@@ -281,6 +281,7 @@ The following command creates a new user named example_user, using mysql_native_
 
 Now we need to give the user permission over the example_database:  
 > mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';  
+  
 *This will give the example_user user full privileges over the example_database database, while preventing this user from creating or modifying other databases on your server*  
   
 - Exit the MySQL shell with `mysql> exit`  
