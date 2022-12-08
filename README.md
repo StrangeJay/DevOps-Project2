@@ -265,6 +265,75 @@ You can always regenerate this file if you need it later.
 ---
 ---
 ## Step 6 – RETRIEVING DATA FROM MYSQL DATABASE WITH PHP (CONTINUED)  
+In this step you will create a test database(DB) with a simple "To do list" and configure access to it. *To enable the Nginx web server query and display data from it.*  
+
+- Create a new user with the "mysql_native_password" authentication method, in order to be connected to the MySQL database from PHP.  
   
+- Create a database and a user of your choice. *For the sake of this project, we would be creating a database named **example_database** and a user named **example_user**.* 
+- First, connect to the MySQL console using the root account:  `sudo mysql -p`  
+
+To create a new database, run the following commandfrom your MySQL console:  
+  ![Screenshot_20221208_122311](https://user-images.githubusercontent.com/105195327/206434650-4459b04c-1a93-4b5f-9290-7351a409df30.png)  
+  
+The following command creates a new user named example_user, using mysql_native_password as default authentication method. We're defining this users password as 'password', but you should replace it with a secure password of your choosing. 
+
+>  CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';  
+
+Now we need to give the user permission over the example_database:  
+> mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';  
+*This will give the example_user user full privileges over the example_database database, while preventing this user from creating or modifying other databases on your server*  
+  
+- Exit the MySQL shell with `mysql> exit`  
+ 
+You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials:
+`mysql -u example_user -p`  
+
+Notice the -p flag in this command, which will prompt you for the password used when creating the example_user user. After logging in to the MySQL console, confirm that you have access to the example_database database:  
+`mysql> SHOW DATABASES;`  
+ 
+ This will give you the following output:  
+![Screenshot_20221208_123725](https://user-images.githubusercontent.com/105195327/206437248-546c1999-a538-4508-a9c6-cb1c7372e92d.png)  
+  
+- Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:  
+
+> CREATE TABLE example_database.todo_list (
+> 	 item_id INT AUTO_INCREMENT,
+>  	content VARCHAR(255),
+>  	PRIMARY KEY(item_id)
+>   );  
+  
+  
+Insert a few rows of content in the test table. You might want to repeat the next command a few times, using different VALUES:  
+
+> `mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");`  
 
 
+To confirm that the data was successfully saved to your table, run:  
+> `mysql> SELECT * FROM example_database.todo_list;`  
+  
+You'll see the following output:    
+![Screenshot_20221208_124606](https://user-images.githubusercontent.com/105195327/206438902-de85db72-8200-4373-b686-1e18f0eea2ac.png)  
+  
+- After confirming that you have valid data in your test table, you can exit the MySQL console:  
+`mysql> exit`  
+
+Now you can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor. We’ll use nano for that:  
+`nano /var/www/projectlemp/todo_list.php`  
+  
+The following PHP script connects to the MySQL database and queries for the content of the todo_list table, displays the results in a list. If there is a problem with the database connection, it will throw an exception.
+Copy this content into your todo_list.php script:  
+![Screenshot_20221208_125220](https://user-images.githubusercontent.com/105195327/206440034-830351a6-d138-4341-901f-734b3c585d4c.png)  
+  
+  
+- Save and close the file when you are done editing.
+- You can now access this page in your web browser by visiting the domain name or public IP address configured for your website, followed by /todo_list.php:  
+`3.134.96.166/todo_list.php`  
+  
+You should see a page like this, showing the content you've inserted in your table.    
+  ![Screenshot_20221208_125512](https://user-images.githubusercontent.com/105195327/206440598-c5c43fcd-edab-4992-b3f3-ce6cd3cb7e96.png)  
+
+That means your PHP environment is ready to connect and interact with your MySQL server.  
+---
+---
+
+# EL FIN!!!
